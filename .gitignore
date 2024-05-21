@@ -1,0 +1,7 @@
+#Ingnorando mis variables de entorno
+
+.env
+
+#Ingnora a carpeta node_modules
+
+node_modules
