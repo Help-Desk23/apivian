@@ -18,7 +18,7 @@ app.use(express.json());
 require('dotenv').config();
 
 app.get("/", (req, res) => {
-    res.end("PANEL DE CONTROL");
+    res.end("HOLA MUNDO!");
 })
 
 app.use("/", router);
