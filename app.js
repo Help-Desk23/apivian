@@ -1,14 +1,6 @@
 const express = require("express");
 const app = express();
 const { db } = require("./config/db");
-const { getAdmin, addAdmin, updateAdmin, deleteAdmin } = require("./controllers/admin/adminControllers");
-const { getAsesores } = require("./controllers/userasesores/userControllers");
-const { login } = require("./controllers/admin/loginControllers");
-const { inicio } = require("./controllers/userasesores/asesoresloginControllers");
-const router = require("./router/adminRouter");
-const routerA = require("./router/asesorRouter");
-const routerM = require("./router/motosRouter");
-const routerC = require("./router/clientRouter");
 
 
 app.use(express.json());
@@ -20,12 +12,6 @@ require('dotenv').config();
 app.get("/", (req, res) => {
     res.end("HOLA MUNDO!");
 })
-
-app.use("/", router);
-app.use("/", routerA);
-app.use("/", routerM);
-app.use("/", routerC)
-
 
 const PORT = process.env.PORT;
 
