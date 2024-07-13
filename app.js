@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const { db } = require("./config/db");
+const { getAdmin } = require("./controllers/administrador/admin");
+const { router } = require("./router/administrador/admin");
 
 
 app.use(express.json());
@@ -12,6 +14,8 @@ require('dotenv').config();
 app.get("/", (req, res) => {
     res.end("HOLA MUNDO!");
 })
+
+app.use("/", router);
 
 const PORT = process.env.PORT;
 
