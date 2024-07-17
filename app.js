@@ -3,6 +3,7 @@ const app = express();
 const { db } = require("./config/db");
 const { getAdmin, addAdmin, updateAdmin, deleteAdmin } = require("./controllers/administrador/admin");
 const { router } = require("./router/administrador/admin");
+const { ruta } = require("./router/asesores/asesores");
 
 
 app.use(express.json());
@@ -16,6 +17,8 @@ app.get("/", (req, res) => {
 })
 
 app.use("/", router);
+
+app.use("/", ruta);
 
 const PORT = process.env.PORT;
 
