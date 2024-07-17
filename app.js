@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const { db } = require("./config/db");
-const { getAdmin, addAdmin } = require("./controllers/administrador/admin");
+const { getAdmin, addAdmin, updateAdmin } = require("./controllers/administrador/admin");
 const { router } = require("./router/administrador/admin");
 
 

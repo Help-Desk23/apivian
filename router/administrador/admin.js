@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAdmin, addAdmin } = require("../../controllers/administrador/admin");
+const { getAdmin, addAdmin, updateAdmin } = require("../../controllers/administrador/admin");
 
 
 const router = express.Router();
@@ -11,6 +11,10 @@ router.get("/admin", getAdmin);
 // RUTA POST
 
 router.post("/admin", addAdmin);
+
+// RUTA PUT
+
+router.put("/admin/:id", updateAdmin)
 
 
 

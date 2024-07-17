@@ -36,8 +36,27 @@ const addAdmin = (req, res) => {
     });
 }
 
+// Controlador UPDATE para actualizar datos de los usuarios administrador
+
+const updateAdmin = (req, res) => {
+    const { id } = req.params;
+    const{ nombre, usuario, contraseña, roles} = req.body;
+    const query = "UPDATE useradmin SET nombre= ?, usuario= ?, contraseña= ?, roles= ? WHERE id_admin= ?";
+    const value = [ nombre, usuario, contraseña, roles, id];
+
+    db.query(query, value, (error, result) => {
+        if(error){
+            console.error("Error al actualizar usuario administrador", error);
+            res.status(500).json({ error: "Error en el metodo PUT"});
+        } else{
+            res.status(201).json({ message: "Usuario administrador actualizado correctamente"})
+        }
+    });
+}
+
 
 module.exports = {
     getAdmin,
-    addAdmin
+    addAdmin,
+    updateAdmin
 }
