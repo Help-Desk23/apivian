@@ -1,6 +1,6 @@
 const {db} = require('../../config/db');
 
-// Controlador GET para obtener todas la categorias
+// Controlador GET para obtener todas los usuario administrador
 
 const getAdmin = (req, res) => {
     const query = "SELECT * FROM useradmin";
@@ -19,6 +19,25 @@ const getAdmin = (req, res) => {
     })
 }
 
+// Controlador POST para guardar todos los usuarios administrador
+
+const addAdmin = (req, res) => {
+    const { nombre, usuario, contraseña, roles} = req.body;
+    const query = "INSERT INTO useradmin (nombre, usuario, contraseña, roles) VALUES (?, ?, ?, ?)";
+    const value = [nombre, usuario, contraseña, roles];
+
+    db.query(query, value, (error, result) => {
+        if(error){
+            console.error("Error al ingresar un usuario administrador", error);
+            res.status(500).json({ error: "Error en el metodo POST"});
+        } else {
+            res.status(201).json({ message: "Usuario Administrador ingresado correctamente"});
+        }
+    });
+}
+
+
 module.exports = {
-    getAdmin
+    getAdmin,
+    addAdmin
 }
