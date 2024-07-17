@@ -55,8 +55,28 @@ const updateAsesores = (req, res) => {
 
 }
 
+// Controlador DELETE para eliminar asesor
+
+const deleteAsesor = (req, res) => {
+    const { id } = req.params
+    const query = "DELETE FROM asesores WHERE id_asesores= ?";
+    const values = [ id ];
+
+    db.query(query, values, (error, result) => {
+        if(error){
+            if(error){
+                console.error("Error al eliminar asesor", error);
+                res.status(500).json({ error: "Error en el metodo DELETE"});
+            } else{
+                res.status(201).json({ message: "Asesor eliminado correctamente"});
+            }
+        }
+    });
+}
+
 module.exports = {
     getAsesores,
     addAsesores,
-    updateAsesores
+    updateAsesores,
+    deleteAsesor
 }
