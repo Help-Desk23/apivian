@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAsesores } = require('../../controllers/asesores/asesores');
+const { getAsesores, addAsesores, updateAsesores } = require('../../controllers/asesores/asesores');
 
 
 const ruta = express.Router();
@@ -8,6 +8,13 @@ const ruta = express.Router();
 
 ruta.get("/asesores", getAsesores);
 
+// RUTA POST
+
+ruta.post("/asesores", addAsesores);
+
+// RUTA PUT
+
+ruta.put("/asesores/:id", updateAsesores);
 
 
 module.exports = {
