@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAdmin, addAdmin, updateAdmin } = require("../../controllers/administrador/admin");
+const { getAdmin, addAdmin, updateAdmin, deleteAdmin } = require("../../controllers/administrador/admin");
 
 
 const router = express.Router();
@@ -14,7 +14,11 @@ router.post("/admin", addAdmin);
 
 // RUTA PUT
 
-router.put("/admin/:id", updateAdmin)
+router.put("/admin/:id", updateAdmin);
+
+// RUTA DELETE
+
+router.delete("/admin/:id", deleteAdmin);
 
 
 
