@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAsesores, addAsesores, updateAsesores, deleteAsesor } = require('../../controllers/asesores/asesores');
+const { getAsesores, addAsesores, updateAsesores, deleteAsesor, loginAsesores } = require('../../controllers/asesores/asesores');
 
 
 const ruta = express.Router();
@@ -11,6 +11,10 @@ ruta.get("/asesores", getAsesores);
 // RUTA POST
 
 ruta.post("/asesores", addAsesores);
+
+// RUTA LOGIN
+
+ruta.post("/loginasesores", loginAsesores);
 
 // RUTA PUT
 

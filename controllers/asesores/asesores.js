@@ -1,4 +1,9 @@
 const { db } = require('../../config/db');
+const jwt = require('jsonwebtoken');
+
+// Clave Secreta
+
+const secretKey = process.env.TOKEN;
 
 // Controlador GET para obtener todos los asesores
 
@@ -19,6 +24,7 @@ const getAsesores = (req, res) => {
     });
 }
 
+
 // Controlador POST para agregar asesores
 
 const addAsesores = (req, res) => {
@@ -35,6 +41,25 @@ const addAsesores = (req, res) => {
         }
     });
 }
+
+// Controlador LOGIN para autoenticación
+
+const loginAsesores = (req, res) => {
+    const { usuario, contraseña } = req.body;
+    const query = "SELECT * FROM asesores WHERE usuario = ? AND contraseña = ?";
+    const values = [usuario, contraseña];
+
+    db.query(query, values, (error, results) => {
+        if (error) {
+            console.error("Error al iniciar sesión", error);
+            res.status(500).json({ error: "Error en el metodo POST" });
+        } else if (results.length > 0) {
+            res.status(200).json({ message: "Inicio de sesión exitoso"});
+        } else {
+            res.status(401).json({ error: "Usuario o contraseña incorrectos" });
+        }
+    });
+};
 
 // Controlador UPDATE para actualizar asesores
 
@@ -78,5 +103,6 @@ module.exports = {
     getAsesores,
     addAsesores,
     updateAsesores,
-    deleteAsesor
+    deleteAsesor,
+    loginAsesores
 }
