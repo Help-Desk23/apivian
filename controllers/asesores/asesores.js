@@ -28,9 +28,9 @@ const getAsesores = (req, res) => {
 // Controlador POST para agregar asesores
 
 const addAsesores = (req, res) => {
-    const { nombre, usuario, contraseña } = req.body;
-    const query = "INSERT INTO asesores (nombre, usuario, contraseña) VALUE (?, ?, ?)";
-    const values = [ nombre, usuario, contraseña];
+    const { nombre, usuario, contraseña, sucursal } = req.body;
+    const query = "INSERT INTO asesores (nombre, usuario, contraseña, sucursal) VALUE (?, ?, ?, ?)";
+    const values = [ nombre, usuario, contraseña, sucursal];
 
     db.query(query, values, (error, result) => {
         if(error){
@@ -65,9 +65,9 @@ const loginAsesores = (req, res) => {
 
 const updateAsesores = (req, res) => {
     const { id } = req.params;
-    const { nombre, usuario, contraseña } = req.body;
-    const query = "UPDATE asesores SET nombre= ?, usuario= ?, contraseña= ? WHERE id_asesores";
-    const values = [ nombre, usuario, contraseña, id];
+    const { nombre, usuario, contraseña, sucursal } = req.body;
+    const query = "UPDATE asesores SET nombre= ?, usuario= ?, contraseña= ?, sucursal= ? WHERE id_asesores";
+    const values = [ nombre, usuario, contraseña, sucursal, id];
 
     db.query(query, values, (error, result) => {
         if(error){
@@ -83,7 +83,7 @@ const updateAsesores = (req, res) => {
 // Controlador DELETE para eliminar asesor
 
 const deleteAsesor = (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
     const query = "DELETE FROM asesores WHERE id_asesores= ?";
     const values = [ id ];
 

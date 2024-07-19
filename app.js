@@ -4,6 +4,7 @@ const { db } = require("./config/db");
 const { getAdmin, addAdmin, updateAdmin, deleteAdmin } = require("./controllers/administrador/admin");
 const { router } = require("./router/administrador/admin");
 const { ruta } = require("./router/asesores/asesores");
+const { client } = require("./router/cliente/cliente");
 
 
 app.use(express.json());
@@ -16,9 +17,18 @@ app.get("/", (req, res) => {
     res.end("HOLA MUNDO!");
 })
 
+// Administrador
+
 app.use("/", router);
 
+// Asesor
+
 app.use("/", ruta);
+
+// Clientes
+
+app.use("/", client);
+
 
 const PORT = process.env.PORT;
 
