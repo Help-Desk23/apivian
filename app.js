@@ -5,6 +5,7 @@ const { getAdmin, addAdmin, updateAdmin, deleteAdmin } = require("./controllers/
 const { router } = require("./router/administrador/admin");
 const { ruta } = require("./router/asesores/asesores");
 const { client } = require("./router/cliente/cliente");
+const { moto } = require("./router/motos/motos");
 
 
 app.use(express.json());
@@ -28,6 +29,10 @@ app.use("/", ruta);
 // Clientes
 
 app.use("/", client);
+
+// Motos
+
+app.use("/", moto);
 
 
 const PORT = process.env.PORT;

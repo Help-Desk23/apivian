@@ -1,21 +1,6 @@
-const { error } = require('console');
 const { db } = require('../../config/db');
-const multer = require('multer');
-const path = require('path');
 
 
-// Configuracion de multer para almacenamiento de imagenes
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
-
-const upload = multer({ storage: storage });
 
 
 // Controlador GET para obtener clientes
@@ -40,25 +25,16 @@ const getClientes = (req, res) => {
 // Controlador POST para agregar clientes
 
 const addClientes = (req, res) => {
+    const { nombre, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor, img_motos } = req.body;
+    const fecha = new Date(); 
+    const query = "INSERT INTO infoclient (nombre, fecha, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor, img_motos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const values = [nombre, fecha, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor, img_motos];
 
-    upload.single('img_motos')(req, res, (err) => {
-        if (err) {
-            return res.status(500).send('Error al subir la imagen');
+    db.query(query, values, (error, results) => {
+        if (error) {
+            return res.status(500).send('Error al insertar los datos en la base de datos');
         }
-
-        const { nombre, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor } = req.body;
-        const fecha = new Date(); 
-        const img_motos = req.file ? req.file.path : null;
-
-        const query = "INSERT INTO infoclient (nombre, fecha, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor, img_motos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        const values = [nombre, fecha, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor, img_motos];
-
-        db.query(query, values, (error, results) => {
-            if (error) {
-                return res.status(500).send('Error al insertar los datos en la base de datos');
-            }
-            res.status(200).send('Cliente agregado exitosamente');
-        });
+        res.status(200).send('Cliente agregado exitosamente');
     });
 };
 
@@ -66,25 +42,17 @@ const addClientes = (req, res) => {
 
 const updateCliente = (req, res) => {
     const {id} = req.params;
-    upload.single('img_motos')(req, res, (err) => {
-        if (err) {
-            return res.status(500).send('Error al subir la imagen');
+    const { nombre, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor, img_motos } = req.body;
+    const fecha = new Date();
+    const query = 'UPDATE infoclient SET nombre = ?, fecha = ?, sucursal = ?, moto = ?, plazo = ?, telefono = ?, preciosus = ?, inicialbs = ?, asesor = ?, img_motos = ? WHERE id_cliente = ?';
+    const values = [nombre, fecha, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor, img_motos, id];
+
+    db.query(query, values, (error, results) => {
+        if(error) {
+            return res.status(500).send('Error al actualizar los datos en la base de datos');
         }
-
-        const { nombre, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor } = req.body;
-        const fecha = new Date(); 
-        const img_motos = req.file ? req.file.path : null;
-
-        const query = 'UPDATE infoclient SET nombre = ?, fecha = ?, sucursal = ?, moto = ?, plazo = ?, telefono = ?, preciosus = ?, inicialbs = ?, asesor = ?, img_motos = ? WHERE id_cliente = ?';
-        const values = [nombre, fecha, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor, img_motos, id];
-
-        db.query(query, values, (error, results) => {
-            if (error) {
-                return res.status(500).send('Error al actualizar los datos en la base de datos');
-            }
             res.status(200).send('Cliente actualizado exitosamente');
         });
-    });
 };
 
 
