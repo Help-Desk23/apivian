@@ -6,6 +6,7 @@ const { router } = require("./router/administrador/admin");
 const { ruta } = require("./router/asesores/asesores");
 const { client } = require("./router/cliente/cliente");
 const { moto } = require("./router/motos/motos");
+const { sucursal } = require("./router/sucursal/sucursal");
 
 
 app.use(express.json());
@@ -33,6 +34,10 @@ app.use("/", client);
 // Motos
 
 app.use("/", moto);
+
+// Sucursales
+
+app.use("/", sucursal);
 
 
 const PORT = process.env.PORT;

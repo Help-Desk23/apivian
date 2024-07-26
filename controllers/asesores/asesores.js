@@ -28,9 +28,9 @@ const getAsesores = (req, res) => {
 // Controlador POST para agregar asesores
 
 const addAsesores = (req, res) => {
-    const { nombre, usuario, contraseña, sucursal } = req.body;
-    const query = "INSERT INTO asesores (nombre, usuario, contraseña, sucursal) VALUE (?, ?, ?, ?)";
-    const values = [ nombre, usuario, contraseña, sucursal];
+    const { nombre, usuario, contraseña } = req.body;
+    const query = "INSERT INTO asesores (nombre, usuario, contraseña) VALUE (?, ?, ?)";
+    const values = [ nombre, usuario, contraseña];
 
     db.query(query, values, (error, result) => {
         if(error){
