@@ -19,7 +19,24 @@ const getSucursales = (req, res) => {
     });
 }
 
+// Controlador POST para agregar sucursales
+
+const addSucursales = (req, res) => {
+    const { sucursal } = req.body;
+    const query = "INSERT INTO sucursales (sucursal) VALUE (?)";
+    const values = [ sucursal ];
+
+    db.query(query, values, (error, result) => {
+        if(error){
+            console.error("Error al ingresar sucursal", error);
+            res.status(500).json({error: "Error en el metodo POST"});
+        } else{
+            res.status(201).json({ message: "Sucursal ingresada correctamente"});
+        }
+    });
+}
 
 module.exports = {
-    getSucursales
+    getSucursales,
+    addSucursales
 }
