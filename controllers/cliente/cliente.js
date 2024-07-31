@@ -25,10 +25,10 @@ const getClientes = (req, res) => {
 // Controlador POST para agregar clientes
 
 const addClientes = (req, res) => {
-    const { nombre, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor, img_motos } = req.body;
+    const { nombre, sucursal, moto, plazo, telefono, preciosus, inicialbs, img_motos, id_asesor } = req.body;
     const fecha = new Date(); 
-    const query = "INSERT INTO infoclient (nombre, fecha, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor, img_motos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    const values = [nombre, fecha, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor, img_motos];
+    const query = "INSERT INTO infoclient (nombre, fecha, sucursal, moto, plazo, telefono, preciosus, inicialbs, img_motos, id_asesores) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const values = [nombre, fecha, sucursal, moto, plazo, telefono, preciosus, inicialbs, img_motos, id_asesor];
 
     db.query(query, values, (error, results) => {
         if (error) {
@@ -42,10 +42,10 @@ const addClientes = (req, res) => {
 
 const updateCliente = (req, res) => {
     const {id} = req.params;
-    const { nombre, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor, img_motos } = req.body;
+    const { nombre, sucursal, moto, plazo, telefono, preciosus, inicialbs, img_motos, id_asesor } = req.body;
     const fecha = new Date();
-    const query = 'UPDATE infoclient SET nombre = ?, fecha = ?, sucursal = ?, moto = ?, plazo = ?, telefono = ?, preciosus = ?, inicialbs = ?, asesor = ?, img_motos = ? WHERE id_cliente = ?';
-    const values = [nombre, fecha, sucursal, moto, plazo, telefono, preciosus, inicialbs, asesor, img_motos, id];
+    const query = 'UPDATE infoclient SET nombre = ?, fecha = ?, sucursal = ?, moto = ?, plazo = ?, telefono = ?, preciosus = ?, inicialbs = ?, img_motos = ?, id_asesor= ? WHERE id_cliente = ?';
+    const values = [nombre, fecha, sucursal, moto, plazo, telefono, preciosus, inicialbs, img_motos, id_asesor, id];
 
     db.query(query, values, (error, results) => {
         if(error) {

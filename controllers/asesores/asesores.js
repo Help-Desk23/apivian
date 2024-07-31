@@ -1,5 +1,4 @@
 const { db } = require('../../config/db');
-const jwt = require('jsonwebtoken');
 
 // Clave Secreta
 
@@ -28,9 +27,9 @@ const getAsesores = (req, res) => {
 // Controlador POST para agregar asesores
 
 const addAsesores = (req, res) => {
-    const { nombre, usuario, contraseña } = req.body;
-    const query = "INSERT INTO asesores (nombre, usuario, contraseña) VALUE (?, ?, ?)";
-    const values = [ nombre, usuario, contraseña];
+    const { nombre, usuario, contraseña, id_sucursal } = req.body;
+    const query = "INSERT INTO asesores (nombre, usuario, contraseña, id_sucursal) VALUE (?, ?, ?, ?)";
+    const values = [ nombre, usuario, contraseña, id_sucursal];
 
     db.query(query, values, (error, result) => {
         if(error){
@@ -65,9 +64,9 @@ const loginAsesores = (req, res) => {
 
 const updateAsesores = (req, res) => {
     const { id } = req.params;
-    const { nombre, usuario, contraseña, sucursal } = req.body;
-    const query = "UPDATE asesores SET nombre= ?, usuario= ?, contraseña= ?, sucursal= ? WHERE id_asesores";
-    const values = [ nombre, usuario, contraseña, sucursal, id];
+    const { nombre, usuario, contraseña, sucursal, id_sucursal } = req.body;
+    const query = "UPDATE asesores SET nombre= ?, usuario= ?, contraseña= ?, sucursal= ?, id_sucursal= ? WHERE id_asesores";
+    const values = [ nombre, usuario, contraseña, sucursal, id_sucursal, id];
 
     db.query(query, values, (error, result) => {
         if(error){
