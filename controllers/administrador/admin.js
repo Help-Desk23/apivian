@@ -22,9 +22,9 @@ const getAdmin = (req, res) => {
 // Controlador POST para guardar todos los usuarios administrador
 
 const addAdmin = (req, res) => {
-    const { nombre, usuario, contraseña, roles} = req.body;
-    const query = "INSERT INTO useradmin (nombre, usuario, contraseña, roles) VALUES (?, ?, ?, ?)";
-    const value = [nombre, usuario, contraseña, roles];
+    const { nombre, usuario, contraseña} = req.body;
+    const query = "INSERT INTO useradmin (nombre, usuario, contraseña) VALUES (?, ?, ?)";
+    const value = [nombre, usuario, contraseña];
 
     db.query(query, value, (error, result) => {
         if(error){
@@ -40,9 +40,9 @@ const addAdmin = (req, res) => {
 
 const updateAdmin = (req, res) => {
     const { id } = req.params;
-    const{ nombre, usuario, contraseña, roles} = req.body;
-    const query = "UPDATE useradmin SET nombre= ?, usuario= ?, contraseña= ?, roles= ? WHERE id_admin= ?";
-    const values = [ nombre, usuario, contraseña, roles, id];
+    const{ nombre, usuario, contraseña} = req.body;
+    const query = "UPDATE useradmin SET nombre= ?, usuario= ?, contraseña= ? WHERE id_admin= ?";
+    const values = [ nombre, usuario, contraseña, id];
 
     db.query(query, values, (error, result) => {
         if(error){
