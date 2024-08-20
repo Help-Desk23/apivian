@@ -1,28 +1,29 @@
 const express = require("express");
-const mysql = require("mysql2");
+const sql = require("mssql");
 
 require('dotenv').config();
 
-//Creando la configuración con mi Base de Datos db_vian
+//Creando la configuración a la base de datos vian
 
-const db = mysql.createConnection({
-    host: process.env.HOST,
+const db = {
+    server: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
-    database: process.env.DATABASE
-})
-
-// Crea la conexión a la base de datos
-
-db.connect((err) => {
-    if(err){
-        console.error("Error al conectar la base de datos", err);
-    } else{
-        console.log("Conexión a la base de datos exitosa")
+    database: process.env.DATABASE,
+    options: {
+        encrypt: true,
+        trustServerCertificate: true
     }
-});
+};
 
-// Crea una aplicación Express
+sql.connect(db)
+    .then(() => {
+        console.log("Conexión a la base de datos exitosa");
+    })
+    .catch(err => {
+        console.error("Error al conectar la base de datos", err);
+    });
+
 
 const app = express();
 
